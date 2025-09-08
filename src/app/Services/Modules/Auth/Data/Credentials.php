@@ -1,5 +1,5 @@
 <?php
-namespace App\Domain\Auth\Data;
+namespace App\Services\Modules\Auth\Data;
 
 final class Credentials
 {

@@ -1,8 +1,8 @@
 <?php
-namespace App\Http\Controllers\Api\Auth;
+namespace App\Http\Controllers;
 
-use App\Domain\Auth\Actions\AuthenticateAction;
-use App\Domain\Auth\Data\Credentials;
+use App\Services\Modules\Auth\Action\AuthenticateAction;
+use App\Services\Modules\Auth\Data\Credentials;
 use Illuminate\Http\Request;
 
 final class SessionController

@@ -1,9 +1,9 @@
 <?php
-namespace App\Domain\Auth\Actions;
+namespace App\Services\Modules\Auth\Action;
 
-use App\Domain\Auth\Data\Credentials;
+use App\Services\Modules\Auth\Data\Credentials;
 use Illuminate\Support\Facades\Auth;
-use App\Domain\Auth\Exceptions\AuthRateLimited;
+use App\Services\Modules\Auth\Exceptions\AuthRateLimited;
 
 final class AuthenticateAction
 {

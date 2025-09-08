@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64d8a7b5-e8ed-491e-8d21-21ea6473ed76" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitigore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/Services/Modules/Auth/Data/Credentials.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Http/Controllers/SessionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Http/Controllers/SessionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Services/Modules/Auth/Action/AuthenticateAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Services/Modules/Auth/Action/AuthenticateAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Services/Modules/Auth/Data/Credentials.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Services/Modules/Auth/Data/Credentials.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +28,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/.env.example" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/routes/web.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/storage/logs/laravel.log" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

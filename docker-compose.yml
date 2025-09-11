@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        SERVER_NAME: taskhandler.local
     container_name: laravel_app
     ports:
       - "8000:80"

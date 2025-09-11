@@ -16,4 +16,11 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Allow configurable ServerName (default = localhost)
+ARG SERVER_NAME=localhost
+RUN echo "ServerName ${SERVER_NAME}" > /etc/apache2/conf-available/servername.conf \
+    && a2enconf servername
+
+
+
 

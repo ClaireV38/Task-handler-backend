@@ -2,22 +2,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use Illuminate\Http\Client\Request;
+use App\Http\Responses\TaskResponse;
+use App\Support\Http\Resources\Json\JsonResponseFactory;
 
-final readonly class TaskController
+class TaskController extends Controller
 {
-    public function index(Request $request)
+    public function __construct(private JsonResponseFactory $jsonResponse) {}
+
+    public function index()
     {
-        $user = $request->user();
+        $tasks = Task::all();
 
-        if ($user->hasRole('admin')) {
-            // admin → toutes les tâches
-            $tasks = Task::all();
-        } else {
-            // user → seulement ses tâches
-            $tasks = Task::where('user_id', $user->id)->get();
-        }
-
-        return response()->json(['data' => $tasks]);
+        return $this->jsonResponse
+            ->collection($tasks, new TaskResponse)
+            ->create();
     }
 }

@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   app:
+    user: "1000"
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,16 +17,18 @@ services:
       - db
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    env_file:
+      - ./src/.env
 
   db:
     image: mysql:8.0
     container_name: laravel_db
     restart: always
     environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: laravel
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:

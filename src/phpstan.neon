@@ -1,0 +1,10 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    memoryLimit: 512M
+    level: max
+    paths:
+        - app
+        - database
+        - routes

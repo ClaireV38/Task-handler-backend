@@ -9,6 +9,9 @@ final class SessionController
 {
     public function __construct(private AuthenticateAction $auth) {}
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $credentials = Credentials::from([
@@ -21,11 +24,14 @@ final class SessionController
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $token = $request->user()->createToken('api-token')->plainTextToken;
+        $token = $request->user()?->createToken('api-token')->plainTextToken;
 
         return response()->json(['token' => $token]);
     }
 
+    /**
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Request $request)
     {
         $this->auth->logout();

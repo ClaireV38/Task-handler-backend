@@ -9,6 +9,9 @@ class TaskController extends Controller
 {
     public function __construct(private JsonResponseFactory $jsonResponse) {}
 
+    /**
+     * @return \App\Support\Http\Resources\Json\JsonResponse
+     */
     public function index()
     {
         $tasks = Task::all();

@@ -23,7 +23,7 @@ class JsonResponse implements Responsable
 
     /** @throws \InvalidArgumentException */
     #[\Override]
-    public function toResponse($request) : Response // @phpstan-ignore typeCoverage.paramTypeCoverage
+    public function toResponse($request) : Response
     {
         $response = new IlluminateJsonResponse();
 

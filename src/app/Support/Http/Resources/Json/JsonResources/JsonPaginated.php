@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Support\Http\Resources\Json\JsonResources;
 
 use League\Fractal\TransformerAbstract;
-use App\Support\Http\Resources\Json\JsonResources;
+use App\Support\Http\Resources\Json\JsonResource;
 use League\Fractal\Pagination\PaginatorInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 

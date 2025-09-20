@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Modules\Auth\Data;
 
 final class Credentials
@@ -7,7 +8,8 @@ final class Credentials
         public string $email,
         public string $password,
         public ?string $ip = null
-    ) {}
+    ) {
+    }
 
     /**
      * @param array{email: string, password: string, ip: string|null} $data

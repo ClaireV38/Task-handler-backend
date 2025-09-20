@@ -10,7 +10,7 @@ use League\Fractal\TransformerAbstract;
 class CurrentUserResponse extends TransformerAbstract
 {
     /** @return array<string, mixed> */
-    public function transform(User $user) : array
+    public function transform(User $user): array
     {
         return [
             'id'        => $user->id,

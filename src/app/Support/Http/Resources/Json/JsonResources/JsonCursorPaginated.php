@@ -78,7 +78,7 @@ final class JsonCursorPaginated extends JsonResource
     /**
      *  @return JsonCursorPaginated<T>
      */
-    public function withArchivedCount(int $count) : self
+    public function withArchivedCount(int $count): self
     {
         $this->archivedCount = $count;
 
@@ -89,7 +89,7 @@ final class JsonCursorPaginated extends JsonResource
     /**
      * @return JsonResponse<T>
      */
-    public function create() : JsonResponse
+    public function create(): JsonResponse
     {
         $meta = [
             'pagination' => [

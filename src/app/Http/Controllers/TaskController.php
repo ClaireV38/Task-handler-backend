@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Task;
@@ -7,7 +8,9 @@ use App\Support\Http\Resources\Json\JsonResponseFactory;
 
 class TaskController extends Controller
 {
-    public function __construct(private JsonResponseFactory $jsonResponse) {}
+    public function __construct(private JsonResponseFactory $jsonResponse)
+    {
+    }
 
     /**
      * @return \App\Support\Http\Resources\Json\JsonResponse
@@ -17,7 +20,7 @@ class TaskController extends Controller
         $tasks = Task::all();
 
         return $this->jsonResponse
-            ->collection($tasks, new TaskResponse)
+            ->collection($tasks, new TaskResponse())
             ->create();
     }
 }

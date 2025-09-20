@@ -18,11 +18,11 @@ final readonly class CurrentUserController
     ) {
     }
 
-    public function show() : JsonResponse
+    public function show(): JsonResponse
     {
         return $this->jsonResponse->item(
             $this->user,
-            new CurrentUserResponse,
+            new CurrentUserResponse(),
         )->create();
     }
 }

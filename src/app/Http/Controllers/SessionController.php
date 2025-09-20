@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
@@ -8,7 +9,9 @@ use Illuminate\Http\Request;
 
 final class SessionController
 {
-    public function __construct(private AuthenticateAction $auth) {}
+    public function __construct(private AuthenticateAction $auth)
+    {
+    }
 
     /**
      * @return \Illuminate\Http\JsonResponse

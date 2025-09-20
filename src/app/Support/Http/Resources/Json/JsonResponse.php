@@ -19,11 +19,12 @@ class JsonResponse implements Responsable
         public array $includes = [],
         public array $headers = [],
         public int $statusCode = Response::HTTP_OK,
-    ) {}
+    ) {
+    }
 
     /** @throws \InvalidArgumentException */
     #[\Override]
-    public function toResponse($request) : Response // @phpstan-ignore typeCoverage.paramTypeCoverage
+    public function toResponse($request): Response
     {
         $response = new IlluminateJsonResponse();
 
@@ -34,7 +35,7 @@ class JsonResponse implements Responsable
         return $response;
     }
 
-    public function asCreated() : static
+    public function asCreated(): static
     {
         $this->statusCode = Response::HTTP_CREATED;
 
@@ -42,7 +43,7 @@ class JsonResponse implements Responsable
     }
 
     /** @param list<string> $headers */
-    public function withHeaders(array $headers) : static
+    public function withHeaders(array $headers): static
     {
         $this->headers = [...$this->headers, ...$headers];
 
@@ -50,21 +51,21 @@ class JsonResponse implements Responsable
     }
 
     /** @param list<string> $headers */
-    public function replaceHeaders(array $headers) : static
+    public function replaceHeaders(array $headers): static
     {
         $this->headers = $headers;
 
         return $this;
     }
 
-    public function withStatusCode(int $statusCode) : static
+    public function withStatusCode(int $statusCode): static
     {
         $this->statusCode = $statusCode;
 
         return $this;
     }
 
-    public function addInclude(string $include) : static
+    public function addInclude(string $include): static
     {
         $this->includes[] = $include;
 
@@ -72,7 +73,7 @@ class JsonResponse implements Responsable
     }
 
     /** @param list<string> $includes */
-    public function replaceIncludes(array $includes) : static
+    public function replaceIncludes(array $includes): static
     {
         $this->includes = $includes;
 

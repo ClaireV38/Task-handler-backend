@@ -9,14 +9,14 @@ use App\Support\Http\Resources\Json\JsonResponse;
 interface JsonResource
 {
     /** @param array<mixed, mixed> $meta */
-    public function withMeta(array $meta) : static;
+    public function withMeta(array $meta): static;
 
     /**
      * @param list<string> $includes
      *
      * @return array<string|int, mixed>
      */
-    public function getData(array $includes) : array;
+    public function getData(array $includes): array;
 
-    public function create() : JsonResponse;
+    public function create(): JsonResponse;
 }

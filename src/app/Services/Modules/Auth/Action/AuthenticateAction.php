@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Modules\Auth\Action;
 
 use App\Services\Modules\Auth\Data\Credentials;

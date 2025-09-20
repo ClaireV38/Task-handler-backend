@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use League\Fractal\TransformerAbstract;
 use Illuminate\Pagination\CursorPaginator;
 use League\Fractal\Pagination\CursorInterface;
-use App\Support\Http\Resources\Json\JsonResources;
+use App\Support\Http\Resources\Json\JsonResource;
 use App\Support\Http\Resources\Json\JsonResponse;
 
 /**
@@ -78,7 +78,7 @@ final class JsonCursorPaginated extends JsonResource
     /**
      *  @return JsonCursorPaginated<T>
      */
-    public function withArchivedCount(int $count) : self
+    public function withArchivedCount(int $count): self
     {
         $this->archivedCount = $count;
 
@@ -89,7 +89,7 @@ final class JsonCursorPaginated extends JsonResource
     /**
      * @return JsonResponse<T>
      */
-    public function create() : JsonResponse
+    public function create(): JsonResponse
     {
         $meta = [
             'pagination' => [

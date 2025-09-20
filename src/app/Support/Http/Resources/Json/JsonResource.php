@@ -18,7 +18,7 @@ abstract class JsonResource implements JsonResourceInterface
     }
 
     #[\Override]
-    public function withMeta(array $meta) : static
+    public function withMeta(array $meta): static
     {
         $this->fractal->addMeta($meta);
 
@@ -26,13 +26,13 @@ abstract class JsonResource implements JsonResourceInterface
     }
 
     #[\Override]
-    public function getData(array $includes) : array
+    public function getData(array $includes): array
     {
         return $this->fractal->parseIncludes($includes)->toArray() ?? [];
     }
 
     #[\Override]
-    public function create() : JsonResponse
+    public function create(): JsonResponse
     {
         return new JsonResponse($this);
     }

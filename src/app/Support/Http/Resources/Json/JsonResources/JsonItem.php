@@ -23,7 +23,7 @@ final class JsonItem extends JsonResource
      *
      * @return JsonItem<T>
      */
-    public function parseIncludes(array|string $includes) : self
+    public function parseIncludes(array|string $includes): self
     {
         $this->fractal->parseIncludes($includes);
 

@@ -30,7 +30,7 @@ final class JsonResponseFactory
      *
      * @return JsonItem<T>
      */
-    public function item(mixed $data, TransformerAbstract $transformer) : JsonItem
+    public function item(mixed $data, TransformerAbstract $transformer): JsonItem
     {
         return new JsonItem($data, $transformer, $this->resourceName);
     }
@@ -42,7 +42,7 @@ final class JsonResponseFactory
      *
      * @return JsonCollection<T>
      */
-    public function collection(iterable $data, TransformerAbstract $transformer) : JsonCollection
+    public function collection(iterable $data, TransformerAbstract $transformer): JsonCollection
     {
         return new JsonCollection($data, $transformer, $this->resourceName);
     }
@@ -58,7 +58,7 @@ final class JsonResponseFactory
         LengthAwarePaginator $data,
         PaginatorInterface $paginator,
         TransformerAbstract $transformer,
-    ) : JsonPaginated {
+    ): JsonPaginated {
         return new JsonPaginated($data, $paginator, $transformer, $this->resourceName);
     }
 
@@ -72,7 +72,7 @@ final class JsonResponseFactory
     public function cursorPaginated(
         CursorPaginator $paginator,
         TransformerAbstract $transformer,
-    ) : JsonCursorPaginated {
+    ): JsonCursorPaginated {
         $currentCursor = $this->request->input('cursor') ?? null;
 
         if (! \is_string($currentCursor)) {

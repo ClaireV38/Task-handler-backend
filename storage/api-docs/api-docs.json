@@ -1,0 +1,44 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Task Handler API",
+        "description": "Documentation for the Task Handler backend API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/me": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get the currently authenticated user",
+                "operationId": "getCurrentUser",
+                "responses": {
+                    "200": {
+                        "description": "Authenticated user data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "User",
+            "description": "User"
+        }
+    ]
+}

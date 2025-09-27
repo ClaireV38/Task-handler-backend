@@ -1,0 +1,20 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Task Handler API",
+        "description": "Documentation for the Task Handler backend API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/me": {
+            "get": {
+                "operationId": "getData",
+                "responses": {
+                    "200": {
+                        "description": "The data"
+                    }
+                }
+            }
+        }
+    }
+}

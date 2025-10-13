@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
-use App\Services\Modules\Auth\Action\AuthenticateAction;
-use App\Services\Modules\Auth\Data\Credentials;
 use Illuminate\Http\Request;
+use OpenApi\Attributes as OA;
+use App\Http\Requests\LoginRequest;
+use App\Services\Modules\Auth\Data\Credentials;
+use App\Services\Modules\Auth\Action\AuthenticateAction;
 
 final class SessionController
 {
@@ -13,6 +14,41 @@ final class SessionController
     {
     }
 
+    #[OA\Post(
+        path: "/api/login",
+        operationId: "loginUser",
+        description: "Logs in a user with email and password, returning a Sanctum API token.",
+        summary: "Authenticate user and return a token",
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\MediaType(
+                mediaType: "application/json",
+                schema: new OA\Schema(
+                    type: "object",
+                    required: ["email", "password"],
+                    properties: [
+                        new OA\Property(property: "email", type: "string", format: "email", example: "user@example.com"),
+                        new OA\Property(property: "password", type: "string", example: "password")
+                    ]
+                )
+            )
+        ),
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Successful login",
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: "token", type: "string", example: "1|abc123def456...")
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: 401,
+                description: "Invalid credentials"
+            )
+        ]
+    )]
     /**
      * @return \Illuminate\Http\JsonResponse
      */

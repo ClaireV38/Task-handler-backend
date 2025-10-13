@@ -77,6 +77,79 @@
                     }
                 }
             }
+        },
+        "/api/tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "List all tasks",
+                "description": "Returns all tasks for the authenticated user (or all tasks if admin).",
+                "operationId": "getTasks",
+                "responses": {
+                    "200": {
+                        "description": "List of tasks retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Fix login bug"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Resolve error in login controller"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "in_progress"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-10-12T08:30:00Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-10-13T09:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -92,6 +165,10 @@
         {
             "name": "User",
             "description": "User"
+        },
+        {
+            "name": "Tasks",
+            "description": "Tasks"
         }
     ]
 }

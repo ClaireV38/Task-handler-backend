@@ -14,6 +14,9 @@ final class SessionController
     {
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     #[OA\Post(
         path: "/api/login",
         operationId: "loginUser",
@@ -49,9 +52,6 @@ final class SessionController
             )
         ]
     )]
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(LoginRequest $request)
     {
         /** @var string $email */

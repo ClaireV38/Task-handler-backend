@@ -13,6 +13,9 @@ class TaskController extends Controller
     {
     }
 
+    /**
+     * @return \App\Support\Http\Resources\Json\JsonResponse
+     */
     #[OA\Get(
         path: "/api/tasks",
         operationId: "getTasks",
@@ -53,9 +56,6 @@ class TaskController extends Controller
             new OA\Response(response: 403, description: "Forbidden"),
         ]
     )]
-    /**
-     * @return \App\Support\Http\Resources\Json\JsonResponse
-     */
     public function index()
     {
         $tasks = Task::all();

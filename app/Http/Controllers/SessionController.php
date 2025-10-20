@@ -14,21 +14,29 @@ final class SessionController
     {
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     #[OA\Post(
-        path: "/api/login",
-        operationId: "loginUser",
-        description: "Logs in a user with email and password, returning a Sanctum API token.",
-        summary: "Authenticate user and return a token",
+        path: '/api/login',
+        operationId: 'loginUser',
+        description: 'Logs in a user with email and password, returning a Sanctum API token.',
+        summary: 'Authenticate user and return a token',
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\MediaType(
-                mediaType: "application/json",
+                mediaType: 'application/json',
                 schema: new OA\Schema(
-                    type: "object",
-                    required: ["email", "password"],
+                    type: 'object',
+                    required: ['email', 'password'],
                     properties: [
-                        new OA\Property(property: "email", type: "string", format: "email", example: "user@example.com"),
-                        new OA\Property(property: "password", type: "string", example: "password")
+                        new OA\Property(
+                            property: 'email',
+                            type: 'string',
+                            format: 'email',
+                            example: 'user@example.com'
+                        ),
+                        new OA\Property(property: 'password', type: 'string', example: 'password')
                     ]
                 )
             )
@@ -36,22 +44,19 @@ final class SessionController
         responses: [
             new OA\Response(
                 response: 200,
-                description: "Successful login",
+                description: 'Successful login',
                 content: new OA\JsonContent(
                     properties: [
-                        new OA\Property(property: "token", type: "string", example: "1|abc123def456...")
+                        new OA\Property(property: 'token', type: 'string', example: '1|abc123def456...')
                     ]
                 )
             ),
             new OA\Response(
                 response: 401,
-                description: "Invalid credentials"
+                description: 'Invalid credentials'
             )
         ]
     )]
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(LoginRequest $request)
     {
         /** @var string $email */
@@ -61,9 +66,9 @@ final class SessionController
         $password = $request->input('password');
 
         $credentials = Credentials::from([
-            'email' => $email,
+            'email'    => $email,
             'password' => $password,
-            'ip' => $request->ip(),
+            'ip'       => $request->ip(),
         ]);
 
         if (!$this->auth->login($credentials)) {

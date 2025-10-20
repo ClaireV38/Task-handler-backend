@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Project">
+    <description>Code style configuration for Laravel project</description>
+
+    <!-- Dossiers à ignorer -->
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>storage/*</exclude-pattern>
+    <exclude-pattern>bootstrap/cache/*</exclude-pattern>
+    <exclude-pattern>node_modules/*</exclude-pattern>
+
+    <!-- Analyse les fichiers PHP -->
+    <file>app</file>
+    <file>routes</file>
+    <file>config</file>
+    <file>database</file>
+    <file>tests</file>
+
+    <!-- Jeu de règles PSR-12 -->
+    <rule ref="PSR12" />
+
+    <!-- Ignorer certains fichiers spécifiques (facultatif) -->
+    <exclude-pattern>public/index.php</exclude-pattern>
+    <!-- <exclude-pattern>app/Helpers/legacy_*.php</exclude-pattern> -->
+</ruleset>

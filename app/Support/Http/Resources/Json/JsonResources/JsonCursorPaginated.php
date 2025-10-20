@@ -51,7 +51,7 @@ final class JsonCursorPaginated extends JsonResource
                     'previous' => $cursor->getPrev(),
                 ],
                 'links' => [
-                    'next'     => $data->nextPageUrl() !== null
+                    'next' => $data->nextPageUrl() !== null
                         ? $data->nextPageUrl() . '&' . http_build_query($queryParams)
                         : null,
                     'previous' => $data->previousPageUrl() !== null
@@ -70,8 +70,8 @@ final class JsonCursorPaginated extends JsonResource
         $this->fractal
             ->collection($data->items(), $transformer, $resourceName);
 
-        $this->cursor = $cursor;
-        $this->data = $data;
+        $this->cursor      = $cursor;
+        $this->data        = $data;
         $this->queryParams = $queryParams;
     }
 
@@ -101,7 +101,7 @@ final class JsonCursorPaginated extends JsonResource
                     'previous' => $this->cursor->getPrev(),
                 ],
                 'links' => [
-                    'next'     => $this->data->nextPageUrl() !== null
+                    'next' => $this->data->nextPageUrl() !== null
                         ? $this->data->nextPageUrl() . '&' . http_build_query($this->queryParams)
                         : null,
                     'previous' => $this->data->previousPageUrl() !== null

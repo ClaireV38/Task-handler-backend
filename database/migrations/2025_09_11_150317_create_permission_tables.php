@@ -20,22 +20,27 @@ return new class () extends Migration {
         /** @var string $store */
         $store = config('permission.cache.store');
         /** @var string $key */
-        $key = config('permission.cache.key');
-        $pivotRole = $columnNames['role_pivot_key'] ?? 'role_id';
+        $key             = config('permission.cache.key');
+        $pivotRole       = $columnNames['role_pivot_key']       ?? 'role_id';
         $pivotPermission = $columnNames['permission_pivot_key'] ?? 'permission_id';
 
         if (empty($tableNames)) {
-            throw new Exception('Error: config/permission.php not loaded. Run [php artisan config:clear] and try again.');
+            throw new Exception(
+                'Error: config/permission.php not loaded. Run [php artisan config:clear] and try again.'
+            );
         }
 
         if ($teams && empty($columnNames['team_foreign_key'] ?? null)) {
-            throw new Exception('Error: team_foreign_key on config/permission.php not loaded. Run [php artisan config:clear] and try again.');
+            throw new Exception(
+                'Error: team_foreign_key on config/permission.php not loaded. Run [php artisan config:clear]
+                 and try again.'
+            );
         }
 
         Schema::create($tableNames['permissions'], static function (Blueprint $table): void {
             //$table->engine('InnoDB');
             $table->bigIncrements('id'); // permission id
-            $table->string('name');       // For MyISAM use string('name', 225); // (or 166 for InnoDB with Redundant/Compact row format)
+            $table->string('name');       // For MyISAM use string('name', 225);
             $table->string('guard_name'); // For MyISAM use string('guard_name', 25);
             $table->timestamps();
 
@@ -88,7 +93,6 @@ return new class () extends Migration {
                     'model_has_permissions_permission_model_type_primary',
                 );
             }
-
         });
 
         Schema::create($tableNames['model_has_roles'], static function (Blueprint $table) use ($tableNames, $columnNames, $pivotRole, $teams): void {

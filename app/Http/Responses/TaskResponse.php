@@ -13,9 +13,9 @@ class TaskResponse extends TransformerAbstract
     public function transform(Task $task): array
     {
         return [
-            'id' => $task->id,
-            'title' => $task->title,
-            'status' => $task->status,
+            'id'         => $task->id,
+            'title'      => $task->title,
+            'status'     => $task->status,
             'created_at' => $task->created_at?->toIso8601String(),
         ];
     }

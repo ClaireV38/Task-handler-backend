@@ -11,6 +11,7 @@ class Task extends Model
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
+
     protected $fillable = [
         'title',
         'description',

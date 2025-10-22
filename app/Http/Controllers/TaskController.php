@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
+use App\Http\Requests\GetTasksRequest;
+use App\Repositories\TaskRepository;
 use OpenApi\Attributes as OA;
 use App\Http\Responses\TaskResponse;
 use App\Support\Http\Resources\Json\JsonResponseFactory;
 
 class TaskController extends Controller
 {
-    public function __construct(private JsonResponseFactory $jsonResponse)
-    {
+    public function __construct(
+        private JsonResponseFactory $jsonResponse,
+        private TaskRepository $tasks
+    ) {
     }
 
     /**
@@ -23,6 +26,29 @@ class TaskController extends Controller
         description: 'Returns all tasks for the authenticated user (or all tasks if admin).',
         tags: ['Tasks'],
         security: [['bearerAuth' => []]],
+        parameters: [
+            new OA\Parameter(
+                name: 'status',
+                in: 'query',
+                required: false,
+                description: 'Filter tasks by status',
+                schema: new OA\Schema(
+                    type: 'string',
+                    enum: ['backlog','todo','doing','review','done'],
+                    example: 'done'
+                )
+            ),
+            new OA\Parameter(
+                name: 'user_id',
+                in: 'query',
+                required: false,
+                description: 'Filter tasks by user ID (admin only)',
+                schema: new OA\Schema(
+                    type: 'integer',
+                    example: 1
+                )
+            ),
+        ],
         responses: [
             new OA\Response(
                 response: 200,
@@ -70,9 +96,10 @@ class TaskController extends Controller
             new OA\Response(response: 403, description: 'Forbidden'),
         ]
     )]
-    public function index()
+    public function index(GetTasksRequest $request)
     {
-        $tasks = Task::all();
+        $filters = $request->filters();
+        $tasks   = $this->tasks->getAll($filters);
 
         return $this->jsonResponse
             ->collection($tasks, new TaskResponse())

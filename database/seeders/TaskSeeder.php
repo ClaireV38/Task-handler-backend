@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TaskSeeder extends Seeder
@@ -13,7 +12,7 @@ class TaskSeeder extends Seeder
     {
         // Crée un utilisateur admin avec quelques tâches
         $admin = User::factory()->create([
-            'name' => 'Admin User',
+            'name'  => 'Admin User',
             'email' => 'admin@example.com',
         ]);
 

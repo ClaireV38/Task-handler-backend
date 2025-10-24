@@ -179,6 +179,80 @@
                     }
                 ]
             }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "List all users",
+                "description": "Returns all users",
+                "operationId": "getUsers",
+                "responses": {
+                    "200": {
+                        "description": "List of users retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Etienne Martin"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "etiennemartin@gmail.com"
+                                                    },
+                                                    "password": {
+                                                        "type": "string",
+                                                        "format": "password",
+                                                        "example": "MonMotDePasse123!"
+                                                    },
+                                                    "remember_token": {
+                                                        "type": "string",
+                                                        "example": "aqwzxdfdesbhjf"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-10-12T08:30:00Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-10-13T09:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -198,6 +272,10 @@
         {
             "name": "Tasks",
             "description": "Tasks"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
         }
     ]
 }

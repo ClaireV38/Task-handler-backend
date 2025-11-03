@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -47,11 +48,11 @@ class MediaController extends Controller
         $this->gate->authorize('update', $model);
 
         $disk = Storage::disk($media->disk);
-        if (!$disk->exists($media->getPath())) {
+        if (!$disk->exists($media->getPathRelativeToRoot())) {
             abort(404);
         }
 
-        $stream = $disk->readStream($media->getPath());
+        $stream = $disk->readStream($media->getPathRelativeToRoot());
 
         return response()->stream(function () use ($stream) {
             fpassthru($stream);

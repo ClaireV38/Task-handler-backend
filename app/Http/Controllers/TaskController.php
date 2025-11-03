@@ -13,6 +13,7 @@ class TaskController extends Controller
     public function __construct(
         private JsonResponseFactory $jsonResponse,
         private TaskRepository $tasks
+        private readonly \Illuminate\Contracts\Auth\Access\Gate $gate,
     ) {
     }
 
@@ -105,4 +106,6 @@ class TaskController extends Controller
             ->collection($tasks, new TaskResponse())
             ->create();
     }
+
+
 }

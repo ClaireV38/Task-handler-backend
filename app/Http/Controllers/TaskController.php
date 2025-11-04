@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GetTasksRequest;
+use App\Models\Task;
 use App\Repositories\TaskRepository;
 use OpenApi\Attributes as OA;
 use App\Http\Responses\TaskResponse;
@@ -104,5 +105,64 @@ class TaskController extends Controller
         return $this->jsonResponse
             ->collection($tasks, new TaskResponse())
             ->create();
+    }
+
+    /**
+     * @return \App\Support\Http\Resources\Json\JsonResponse|\Illuminate\Http\JsonResponse
+     */
+    #[OA\Get(
+        path: '/api/tasks/{taskId}',
+        operationId: 'getTaskDetailsbyId',
+        summary: 'Get task details by id',
+        security: [['bearerAuth' => []]],
+        tags: ['Task'],
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'task',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'id', type: 'integer', example: 1),
+                        new OA\Property(property: 'title', type: 'string', example: 'Fix login bug'),
+                        new OA\Property(
+                            property: 'description',
+                            type: 'string',
+                            example: 'Resolve error in login controller'
+                        ),
+                        new OA\Property(property: 'status', type: 'string', example: 'in_progress'),
+                        new OA\Property(property: 'user_id', type: 'integer', example: 1),
+                        new OA\Property(
+                            property: 'created_at',
+                            type: 'string',
+                            format: 'date-time',
+                            example: '2025-10-12T08:30:00Z'
+                        ),
+                        new OA\Property(
+                            property: 'updated_at',
+                            type: 'string',
+                            format: 'date-time',
+                            example: '2025-10-13T09:00:00Z'
+                        ),
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: 404,
+                description: 'Task not found'
+            )
+        ]
+    )]
+    public function show(int $task)
+    {
+        $task = Task::find($task);
+
+        if($task === null) {
+            return response()->json(['message' => 'Task not found'], 404);
+        }
+
+        return $this->jsonResponse->item(
+            $task,
+            new TaskResponse(),
+        )->create();
     }
 }

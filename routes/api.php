@@ -16,6 +16,9 @@ Route::get('/me', [CurrentUserController::class, 'show'])
 Route::get('/tasks', [TaskController::class, 'index'])
     ->middleware(['auth:sanctum']);
 
+Route::get('/tasks/{task}', [TaskController::class, 'show'])
+    ->middleware(['auth:sanctum']);
+
 Route::get('/users', [UserController::class, 'index'])
     ->middleware(['auth:sanctum']);
 

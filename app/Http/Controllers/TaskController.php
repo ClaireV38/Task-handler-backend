@@ -105,6 +105,4 @@ class TaskController extends Controller
             ->collection($tasks, new TaskResponse())
             ->create();
     }
-
-
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Http\Responses\MediaResponse;
@@ -10,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use OpenApi\Attributes as OA;
 
+#[OA\Tag(name: 'Media', description: 'Media file handling for tasks')]
 class MediaController extends Controller
 {
     public function __construct(
@@ -18,6 +18,55 @@ class MediaController extends Controller
     ) {
     }
 
+    #[OA\Post(
+        path: '/api/tasks/{taskId}/media',
+        summary: 'Uploader un fichier média pour une tâche',
+        tags: ['Media'],
+        security: [['bearerAuth' => []]],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\MediaType(
+                mediaType: 'multipart/form-data',
+                schema: new OA\Schema(
+                    required: ['file'],
+                    properties: [
+                        new OA\Property(
+                            property: 'file',
+                            description: 'Fichier à uploader (max 10 MB)',
+                            type: 'string',
+                            format: 'binary'
+                        )
+                    ]
+                )
+            )
+        ),
+        parameters: [
+            new OA\Parameter(
+                name: 'taskId',
+                in: 'path',
+                required: true,
+                description: 'ID de la tâche associée',
+                schema: new OA\Schema(type: 'integer')
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: 201,
+                description: 'Fichier uploadé avec succès',
+                content: new OA\JsonContent(
+                    type: 'object',
+                    properties: [
+                        new OA\Property(property: 'id', type: 'integer'),
+                        new OA\Property(property: 'file_name', type: 'string'),
+                        new OA\Property(property: 'mime_type', type: 'string'),
+                        new OA\Property(property: 'url', type: 'string')
+                    ]
+                )
+            ),
+            new OA\Response(response: 403, description: 'Non autorisé'),
+            new OA\Response(response: 422, description: 'Validation échouée'),
+        ]
+    )]
     /**
      * @return \App\Support\Http\Resources\Json\JsonResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -41,6 +90,33 @@ class MediaController extends Controller
         )->create();
     }
 
+    #[OA\Get(
+        path: '/api/media/{mediaId}',
+        summary: 'Lire ou streamer un fichier média',
+        tags: ['Media'],
+        security: [['bearerAuth' => []]],
+        parameters: [
+            new OA\Parameter(
+                name: 'mediaId',
+                in: 'path',
+                required: true,
+                description: 'ID du média à lire',
+                schema: new OA\Schema(type: 'integer')
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Flux vidéo ou fichier binaire',
+                content: new OA\MediaType(
+                    mediaType: 'application/octet-stream',
+                    schema: new OA\Schema(type: 'string', format: 'binary')
+                )
+            ),
+            new OA\Response(response: 403, description: 'Non autorisé à accéder à ce média'),
+            new OA\Response(response: 404, description: 'Média introuvable'),
+        ]
+    )]
     /**
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -64,15 +140,43 @@ class MediaController extends Controller
         return response()->stream(function () use ($stream) {
             fpassthru($stream);
         }, 200, [
-            'Content-Type' => $media->mime_type ?? 'application/octet-stream',
+            'Content-Type'        => $media->mime_type ?? 'application/octet-stream',
             'Content-Disposition' => 'inline; filename="' . $media->file_name . '"',
 // Empêche le cache navigateur tout en permettant Cloudflare
             'Cache-Control' => 'private, max-age=0, no-cache, no-store',
-            'Pragma' => 'no-cache',
-            'ETag' => md5($media->id . $media->updated_at),
+            'Pragma'        => 'no-cache',
+            'ETag'          => md5($media->id . $media->updated_at),
         ]);
     }
 
+    #[OA\Delete(
+        path: '/api/media/{mediaId}',
+        summary: 'Supprimer un fichier média',
+        tags: ['Media'],
+        security: [['bearerAuth' => []]],
+        parameters: [
+            new OA\Parameter(
+                name: 'mediaId',
+                in: 'path',
+                required: true,
+                description: 'ID du média à supprimer',
+                schema: new OA\Schema(type: 'integer')
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Fichier supprimé avec succès',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'message', type: 'string', example: 'Deleted successfully')
+                    ]
+                )
+            ),
+            new OA\Response(response: 403, description: 'Non autorisé'),
+            new OA\Response(response: 404, description: 'Média introuvable'),
+        ]
+    )]
     /**
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException

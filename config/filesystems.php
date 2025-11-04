@@ -48,19 +48,19 @@ return [
         ],
 
         'media' => [
-            'driver' => env('MEDIA_DRIVER', 'local'),
-            'root' => storage_path('app/private'), // par défaut local
+            'driver'     => env('MEDIA_DRIVER', 'local'),
+            'root'       => storage_path('app/private'), // par défaut local
             'visibility' => 'private',
-            'throw' => false,
+            'throw'      => false,
         ],
 
         'ovh' => [
-            'driver' => 's3',
-            'key' => env('OVH_ACCESS_KEY_ID'),
-            'secret' => env('OVH_SECRET_ACCESS_KEY'),
-            'region' => env('OVH_DEFAULT_REGION'),
-            'bucket' => env('OVH_BUCKET'),
-            'endpoint' => env('OVH_ENDPOINT'),
+            'driver'     => 's3',
+            'key'        => env('OVH_ACCESS_KEY_ID'),
+            'secret'     => env('OVH_SECRET_ACCESS_KEY'),
+            'region'     => env('OVH_DEFAULT_REGION'),
+            'bucket'     => env('OVH_BUCKET'),
+            'endpoint'   => env('OVH_ENDPOINT'),
             'visibility' => 'private',
         ],
 

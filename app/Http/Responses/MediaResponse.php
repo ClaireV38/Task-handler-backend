@@ -13,9 +13,9 @@ class MediaResponse extends TransformerAbstract
     public function transform(Media $media): array
     {
         return [
-            'id' => $media->id,
-            'file_name' => $media->file_name,
-            'size' => $media->size,
+            'id'         => $media->id,
+            'file_name'  => $media->file_name,
+            'size'       => $media->size,
             'created_at' => $media->created_at?->toIso8601String(),
         ];
     }

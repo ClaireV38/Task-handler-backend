@@ -12,7 +12,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Task extends Model implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, InteractsWithMedia;
+    use HasFactory;
+    use InteractsWithMedia;
 
     protected $fillable = [
         'title',

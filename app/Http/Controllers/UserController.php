@@ -83,7 +83,7 @@ class UserController extends Controller
     )]
     public function index(Request $request)
     {
-        $users   = User::all();
+        $users = User::all();
 
         return $this->jsonResponse
             ->collection($users, new UserResponse())

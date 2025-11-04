@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class TaskPolicy
 {
@@ -22,14 +21,6 @@ class TaskPolicy
     public function view(User $user, Task $task): bool
     {
         return false;
-    }
-
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
-    {
-        return $task->user_id === $user->id;
     }
 
     /**

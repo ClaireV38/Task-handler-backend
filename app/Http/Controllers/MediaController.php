@@ -3,22 +3,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Responses\MediaResponse;
+use App\Support\Http\Resources\Json\JsonResponseFactory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use OpenApi\Attributes as OA;
 
 class MediaController extends Controller
 {
     public function __construct(
-        private readonly \Illuminate\Contracts\Auth\Access\Gate $gate,
+        private JsonResponseFactory $jsonResponse,
+        private readonly \Illuminate\Contracts\Auth\Access\Gate $gate
     ) {
     }
 
     /**
-     * Upload d’un média sur une Task.
+     * @return \App\Support\Http\Resources\Json\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(Request $request, $taskId)
+    public function store(Request $request, int $taskId)
     {
         $request->validate([
             'file' => 'required|file|max:10240', // 10 MB
@@ -30,17 +34,16 @@ class MediaController extends Controller
         $media = $task->addMediaFromRequest('file')
             ->toMediaCollection('attachments');
 
-        return response()->json([
-            'id' => $media->id,
-            'file_name' => $media->file_name,
-            'mime_type' => $media->mime_type,
-            'size' => $media->size,
-            'created_at' => $media->created_at,
-        ]);
+
+        return $this->jsonResponse->item(
+            $media,
+            new MediaResponse(),
+        )->create();
     }
 
     /**
-     * Récupération sécurisée du média via proxy Laravel.
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Media $media)
     {
@@ -53,6 +56,10 @@ class MediaController extends Controller
         }
 
         $stream = $disk->readStream($media->getPathRelativeToRoot());
+
+        if ($stream === null) {
+            abort(404);
+        }
 
         return response()->stream(function () use ($stream) {
             fpassthru($stream);
@@ -67,7 +74,8 @@ class MediaController extends Controller
     }
 
     /**
-     * Suppression d’un média.
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Media $media)
     {

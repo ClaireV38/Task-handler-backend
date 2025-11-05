@@ -18,6 +18,10 @@ class MediaController extends Controller
     ) {
     }
 
+    /**
+     * @return \App\Support\Http\Resources\Json\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     #[OA\Post(
         path: '/api/tasks/{taskId}/media',
         summary: 'Uploader un fichier média pour une tâche',
@@ -67,10 +71,6 @@ class MediaController extends Controller
             new OA\Response(response: 422, description: 'Validation échouée'),
         ]
     )]
-    /**
-     * @return \App\Support\Http\Resources\Json\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
     public function store(Request $request, int $taskId)
     {
         $request->validate([
@@ -90,6 +90,10 @@ class MediaController extends Controller
         )->create();
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     #[OA\Get(
         path: '/api/media/{mediaId}',
         summary: 'Lire ou streamer un fichier média',
@@ -117,10 +121,6 @@ class MediaController extends Controller
             new OA\Response(response: 404, description: 'Média introuvable'),
         ]
     )]
-    /**
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
     public function show(Media $media)
     {
         $model = $media->model;
@@ -149,6 +149,10 @@ class MediaController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     #[OA\Delete(
         path: '/api/media/{mediaId}',
         summary: 'Supprimer un fichier média',
@@ -177,10 +181,6 @@ class MediaController extends Controller
             new OA\Response(response: 404, description: 'Média introuvable'),
         ]
     )]
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
     public function destroy(Media $media)
     {
         $model = $media->model;

@@ -29,6 +29,6 @@ Route::get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tasks/{task}/media', [MediaController::class, 'store']);
-    Route::get('/media/{media}', [MediaController::class, 'show']);
+    Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
     Route::delete('/media/{media}', [MediaController::class, 'destroy']);
 });

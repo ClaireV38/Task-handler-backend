@@ -156,7 +156,7 @@ class TaskController extends Controller
     {
         $task = Task::find($task);
 
-        if($task === null) {
+        if ($task === null) {
             return response()->json(['message' => 'Task not found'], 404);
         }
 

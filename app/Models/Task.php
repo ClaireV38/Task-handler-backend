@@ -48,21 +48,6 @@ class Task extends Model implements HasMedia
      */
     public function getMediaResponseAttribute()
     {
-        return $this->getMedia('attachments')->map(function ($media) {
-           /*   //Temporary url if needed for cache
-                $temporaryUrl = URL::temporarySignedRoute(
-                'media.show',
-                now()->addMinutes(10),
-                ['media' => $media->id]
-            );  */
-
-            return [
-                'id' => $media->id,
-                'file_name' => $media->file_name,
-                'mime_type' => $media->mime_type,
-                'size' => $media->size,
-                'url' => route('media.show', $media),
-            ];
-        });
+        return $this->getMedia('attachments');
     }
 }

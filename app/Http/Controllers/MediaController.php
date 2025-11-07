@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Responses\MediaResponse;
 use App\Support\Http\Resources\Json\JsonResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use OpenApi\Attributes as OA;

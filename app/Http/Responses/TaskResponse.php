@@ -18,6 +18,7 @@ class TaskResponse extends TransformerAbstract
             'title'      => $task->title,
             'status'     => $task->status,
             'created_at' => $task->created_at?->toIso8601String(),
+            'user_id'    => $task->user_id,
             'media' => $task->getMediaResponseAttribute()->map(function ($media) {
                 /*   //Temporary url if needed for cache
                      $temporaryUrl = URL::temporarySignedRoute(

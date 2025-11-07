@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.10.1",
         "league/fractal": "^0.20.2",
         "spatie/laravel-fractal": "^6.3",
+        "spatie/laravel-medialibrary": "^11.17",
         "spatie/laravel-permission": "^6.21",
         "zircote/swagger-php": "^5.4"
     },

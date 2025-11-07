@@ -14,8 +14,8 @@ class UserResponse extends TransformerAbstract
     {
         return [
             'id'         => $user->id,
-            'name'      => $user->name,
-            'email'     => $user->email,
+            'name'       => $user->name,
+            'email'      => $user->email,
             'created_at' => $user->created_at?->toIso8601String(),
         ];
     }

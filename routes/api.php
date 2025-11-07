@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,9 @@ Route::get('/users', [UserController::class, 'index'])
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/tasks/{task}/media', [MediaController::class, 'store']);
+    Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
+    Route::delete('/media/{media}', [MediaController::class, 'destroy']);
+});

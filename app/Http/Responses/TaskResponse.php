@@ -5,11 +5,17 @@ declare(strict_types=1);
 namespace App\Http\Responses;
 
 use App\Models\Task;
-use Illuminate\Support\Facades\URL;
+use League\Fractal\Resource\Item;
+use League\Fractal\Resource\NullResource;
 use League\Fractal\TransformerAbstract;
 
 class TaskResponse extends TransformerAbstract
 {
+    public function __construct()
+    {
+        $this->setDefaultIncludes(['user']);
+    }
+
     /** @return array<string, mixed> */
     public function transform(Task $task): array
     {
@@ -35,5 +41,14 @@ class TaskResponse extends TransformerAbstract
                 ];
             })
         ];
+    }
+
+    public function includeUser(Task $task) : Item | NullResource
+    {
+        if ($task->user === null) {
+            return $this->null();
+        }
+
+        return $this->item($task->user, new UserResponse());
     }
 }

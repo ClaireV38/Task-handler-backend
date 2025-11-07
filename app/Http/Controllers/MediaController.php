@@ -142,7 +142,6 @@ class MediaController extends Controller
         }, 200, [
             'Content-Type'        => $media->mime_type ?? 'application/octet-stream',
             'Content-Disposition' => 'inline; filename="' . $media->file_name . '"',
-// Empêche le cache navigateur tout en permettant Cloudflare
             'Cache-Control' => 'private, max-age=0, no-cache, no-store',
             'Pragma'        => 'no-cache',
             'ETag'          => md5($media->id . $media->updated_at),
